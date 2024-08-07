@@ -26,3 +26,13 @@ exports.getBidsByJobId = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
+exports.getBidsByUserId = async (req, res) => {
+    try {
+        const bids = await Bid.find({ freelancerId: req.user.id }).populate('jobId', 'title');
+        res.json(bids);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+};
