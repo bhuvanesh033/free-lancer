@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const app = express();
 
 // Connect to database
@@ -17,6 +17,11 @@ app.use('/api/bids', require('./routes/bidRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
+app.use(cors({
+    origin: 'http://localhost:5173', // Frontend origin
+    methods: ['GET', 'POST','PUT','DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 
 const PORT = process.env.PORT || 5000;
 
