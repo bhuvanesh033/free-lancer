@@ -17,12 +17,7 @@ app.use('/api/bids', require('./routes/bidRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
-app.use(cors({
-    origin: 'http://localhost:5173', // Frontend origin
-    methods: ['GET', 'POST','PUT','DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
-
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
