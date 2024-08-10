@@ -1,4 +1,5 @@
 const Message = require('../models/Message');
+const AcceptedBid = require('../models/AcceptedBid');
 
 exports.sendMessage = async (req, res) => {
     const { message, receiverId } = req.body;

@@ -25,6 +25,7 @@ app.use('/api/bids', require('./routes/bidRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
+app.use('/api/acceptedBids', require('./routes/acceptedBids'));
 
 const PORT = process.env.PORT || 5000;
 
