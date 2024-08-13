@@ -9,7 +9,7 @@ connectDB();
 
 // Enable CORS for all routes
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow your frontend's origin
+    origin: 'https://proconnect-1.onrender.com', // Allow your frontend's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
     credentials: true // If you're using cookies or other credentials
