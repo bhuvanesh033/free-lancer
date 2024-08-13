@@ -25,41 +25,38 @@ exports.createOrGetConversation = async (req, res) => {
 };
 
 // Get Conversations for a User
-// controllers/conversationController.js
-// controllers/conversationController.js
 exports.getConversationsForUser = async (req, res) => {
-    const { userId } = req.params;
-  
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID is required' });
-    }
-  
-    try {
-      const conversations = await Conversation.find({
-        $or: [{ clientId: userId }, { freelancerId: userId }]
-      })
-      .populate('jobId', 'title') // Populate job title
-      .populate('freelancerId', 'name') // Populate freelancer's name
-      .populate('clientId', 'name'); // Populate client's name
-  
-      const formattedConversations = conversations.map(conversation => ({
-        jobTitle: conversation.jobId.title,
-        participants: [
-          {
-            id: conversation.freelancerId._id,
-            name: conversation.freelancerId.name
-          },
-          {
-            id: conversation.clientId._id,
-            name: conversation.clientId.name
-          }
-        ]
-      }));
-  
-      res.status(200).json(formattedConversations);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
-  
-  
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+  }
+
+  try {
+    const conversations = await Conversation.find({
+      $or: [{ clientId: userId }, { freelancerId: userId }]
+    })
+    .populate('jobId', 'title') // Populate job title
+    .populate('freelancerId', 'name') // Populate freelancer's name
+    .populate('clientId', 'name'); // Populate client's name
+
+    const formattedConversations = conversations.map(conversation => ({
+      _id: conversation._id, // Include conversation ID
+      jobTitle: conversation.jobId.title,
+      participants: [
+        {
+          id: conversation.freelancerId._id,
+          name: conversation.freelancerId.name
+        },
+        {
+          id: conversation.clientId._id,
+          name: conversation.clientId.name
+        }
+      ]
+    }));
+
+    res.status(200).json(formattedConversations);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
